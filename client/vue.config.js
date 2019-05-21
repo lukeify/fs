@@ -6,12 +6,13 @@ module.exports = {
                 secure: false,
                 changeOrigin: true
             },
-            '/images': {
+            '/': {
                 target: 'http://localhost:5000',
                 secure: false,
                 pathRewrite: {
-                    "^/images": ""
+                    "^/": ""
                 },
+                ws: false,
                 changeOrigin: true
             },
         }
@@ -21,4 +22,5 @@ module.exports = {
             filename: '[name].[hash].js'
         }
     },
+    outputDir: '../wwwroot'
 };

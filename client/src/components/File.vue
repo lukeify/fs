@@ -1,12 +1,12 @@
 ﻿<template>
     <li v-bind:style="{ width: file.width + 'px', height: file.height + 'px' }">
-        <img v-bind:src="fullyQualifiedThumbUrl" class="file-preview" v-on:click="toggleExpando(file)" />
+        <img v-bind:src="thumbnailUrl" class="file-preview" v-on:click="toggleExpando(file)" />
         <div class="overlay"></div>
         <a class="file-action action-copy" v-on:click="copyUrl" title="Copy the file URL">
-            <input type="text" class="file-url" v-model="fullyQualifiedUrl" ref="fullyQualifiedUrlElement">
+            <input type="text" class="file-url" v-model="fullyQualifiedFileUrl" ref="fullyQualifiedUrlElement">
             <img src="./../assets/copy-icon.png" alt="Copy File" class="file-action-icon">
         </a>
-        <a class="file-action action-open" v-bind:href="fullyQualifiedUrl" target="_blank" title="Open the file in a new tab">
+        <a class="file-action action-open" v-bind:href="fileUrl" target="_blank" title="Open the file in a new tab">
             <img src="./../assets/open-icon.png" alt="Open File" class="file-action-icon">
         </a>
         <a class="file-action action-details" v-on:click="toggleExpando" title="Show detailed options for this file">
@@ -19,6 +19,7 @@
     import {Component, Prop, Vue} from 'vue-property-decorator';
     import EventBus from '../EventBus';
     import FileDisplayData from '@/interfaces/FileDisplayData';
+    import EnvironmentService from '@/services/EnvironmentService';
 
     @Component
     export default class FileComponent extends Vue {
@@ -28,21 +29,30 @@
             fullyQualifiedUrlElement: HTMLInputElement
         };
 
+        public env: string = EnvironmentService.getEnv;
+
         /**
          * The fully qualified URL to a file.
          */
-        public get fullyQualifiedUrl(): string {
-            return 'http://localhost:8081/images/' + this.file.file.url;
+        public get fileUrl(): string {
+            return '/' + this.file.file.url;
         }
 
         /**
          * The fully qualified URL to the thumbnail.
          */
-        public get fullyQualifiedThumbUrl(): string {
+        public get thumbnailUrl(): string {
             if (this.file.file.hasThumbnail) {
-                return 'http://localhost:8081/images/thumbs/default/' + this.file.file.url;
+                return '/thumbs/default/' + this.file.file.url;
             }
-            return this.fullyQualifiedUrl;
+            return this.fileUrl;
+        }
+
+        public get fullyQualifiedFileUrl(): string {
+            if (EnvironmentService.isProduction) {
+                return 'https://fs.lukeify.com/' + this.file.file.url;
+            }
+            return 'http://localhost:8081/' +  this.file.file.url;
         }
 
         /**
