@@ -128,6 +128,8 @@ export default class HomeComponent extends Vue {
             background: linear-gradient(90deg, $midnight ($dot-space - $dot-size), transparent 1%) center,
             linear-gradient($midnight ($dot-space - $dot-size), transparent 1%) center,
             lighten($midnight, 15%);
+            background-size: $dot-space $dot-space;
+
         }
 
         .dz-message {
