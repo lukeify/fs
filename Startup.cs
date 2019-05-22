@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Authorization;
 using RethinkDb.Driver.Net;
 using Fs.Services;
 using Fs.Helpers;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Fs
 {
@@ -80,6 +82,22 @@ namespace Fs
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
+
+            string staticFileDir = "";
+            if (Path.IsPathRooted(this.Configuration["Fs:Dir"]))
+            {
+                staticFileDir = this.Configuration["Fs:Dir"];
+            } 
+            else
+            {
+                staticFileDir = Path.Combine(Directory.GetCurrentDirectory(), this.Configuration["Fs:Dir"]);
+            }
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(staticFileDir),
+                RequestPath = ""
+            });
             app.UseMvc();
         }
     }
