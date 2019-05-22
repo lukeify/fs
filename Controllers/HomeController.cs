@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Fs.Controllers
 {
+    [Route("/")]
+    [ApiController]
     public class HomeController : Controller
     {
         /// <summary>
@@ -14,6 +16,7 @@ namespace Fs.Controllers
         /// return this.
         /// </summary>
         /// <returns>The index.</returns>
+        [HttpGet]
         public IActionResult Index()
         {
             return View("index.html");
