@@ -14,6 +14,7 @@ using Fs.Services;
 using Fs.Helpers;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
+using Fs.Middleware;
 
 namespace Fs
 {
@@ -71,6 +72,10 @@ namespace Fs
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // Custom middleware.
+            app.EnsureDatabaseExists();
+            app.EnsureFilesystemExists();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
