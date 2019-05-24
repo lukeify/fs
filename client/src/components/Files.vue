@@ -110,6 +110,7 @@ export default class FilesComponent extends Vue {
                 this.fileCount = data.count;
                 this.storageSpaceUsed = data.bytesUsed;
                 this.humanReadableStorageSpaceUsed = this.computeStorageSpaceUsed(data.bytesUsed);
+                this.setDocumentTitle(this.fileCount, this.humanReadableStorageSpaceUsed);
         });
 
         // Create a request to retrieve the first pagination of results.
@@ -197,6 +198,7 @@ export default class FilesComponent extends Vue {
         this.fileCount          += files.length;
         this.storageSpaceUsed   += files.reduce((a,v,i) => a += v.filesize, 0);
         this.humanReadableStorageSpaceUsed = this.computeStorageSpaceUsed(this.storageSpaceUsed);
+        this.setDocumentTitle(this.fileCount, this.humanReadableStorageSpaceUsed);
 
         const imageLayoutService = new ImageLayoutService();
         this.fileDisplayData = imageLayoutService.buildRows(this.allFiles, {
@@ -205,6 +207,16 @@ export default class FilesComponent extends Vue {
             itemSpacing: 10,
         });
 
+    }
+
+    public setDocumentTitle(files: number, storageSpace: string): void {
+        if (files === 0) {
+            document.title = `No files | fs.lukeify.com`;
+        } else if (files === 1) {
+            document.title = `1 file, ${storageSpace} | fs.lukeify.com`;
+        } else {
+            document.title = `${files} files, ${storageSpace} | fs.lukeify.com`;
+        }
     }
 
     /**

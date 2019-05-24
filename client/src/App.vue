@@ -81,6 +81,7 @@ export default class AppComponent extends Vue {
     private deauth(): void {
         localStorage.removeItem('appKey');
         this.authenticated = false;
+        document.title = 'fs.lukeify.com';
     }
 
     /**
@@ -91,6 +92,7 @@ export default class AppComponent extends Vue {
         if (window.confirm(`Are you sure you want to wipe fs.lukeify.com?`)) {
             fetch('/api/dev/wipe', { method: 'GET' }).then((res) => {
                 EventBus.$emit('wipeComplete');
+                document.title = 'No files | fs.lukeify.com';
             });
         }
     }
