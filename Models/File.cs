@@ -14,7 +14,22 @@ namespace Fs.Models
 
         public string Mimetype { get; set; }
 
-        public string Extension { get; set; }
+        private string _extension;
+
+        public string Extension {
+            get
+            {
+                if (!String.IsNullOrEmpty(this._extension))
+                {
+                    return this._extension.ToLower();
+                }
+                return this._extension;
+            }
+            set
+            {
+                this._extension = value;
+            }
+        }
 
         public int Width { get; set; }
 

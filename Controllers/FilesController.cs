@@ -156,17 +156,17 @@ namespace Fs.Controllers
                 // Create a File Model
                 File file = new File()
                 {
-                    Category = FileCategory.Image,
-                    Name = newFileNameWithoutExtension,
-                    UserProvidedName = uploadedFile.UserProvidedName,
-                    Mimetype = uploadedFile.UserProvidedMimetype.ToString(),
-                    Extension = uploadedFile.UserProvidedExtension,
-                    Width = this.FileAttributesHelper.GetImageWidth(newFilePath),
-                    Height = this.FileAttributesHelper.GetImageHeight(newFilePath),
-                    Filesize = this.FileAttributesHelper.GetFilesize(newFilePath),
-                    HasThumbnail = hasThumbnail,
-                    CreatedAt = now,
-                    UpdatedAt = now
+                    Category            = FileCategory.Image,
+                    Name                = newFileNameWithoutExtension,
+                    UserProvidedName    = uploadedFile.UserProvidedName,
+                    Mimetype            = uploadedFile.UserProvidedMimetype.ToString(),
+                    Extension           = uploadedFile.UserProvidedExtension,
+                    Width               = this.FileAttributesHelper.GetImageWidth(newFilePath),
+                    Height              = this.FileAttributesHelper.GetImageHeight(newFilePath),
+                    Filesize            = this.FileAttributesHelper.GetFilesize(newFilePath),
+                    HasThumbnail        = hasThumbnail,
+                    CreatedAt           = now,
+                    UpdatedAt           = now
                 };
 
                 // Insert into RethinkDB.
@@ -215,6 +215,8 @@ namespace Fs.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
+
+
             this.FilesTable()
                 .Get(id)
                 .Delete()
@@ -224,7 +226,8 @@ namespace Fs.Controllers
         }
 
         /// <summary>
-        /// Fileses the table.
+        /// Shorthand method to retrieve a reference to the table where file
+        /// metadata is stored.
         /// </summary>
         /// <returns>The table.</returns>
         private Table FilesTable()
