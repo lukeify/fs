@@ -179,7 +179,7 @@ export default class FilesComponent extends Vue {
 
             const imageLayoutService = new ImageLayoutService();
             this.fileDisplayData = imageLayoutService.buildRows(this.allFiles, {
-                rowWidth: 1000,
+                rowWidth: this.computeDesiredRowWidth(),
                 desiredItemHeight: 200,
                 itemSpacing: 10,
             });
@@ -199,7 +199,7 @@ export default class FilesComponent extends Vue {
 
         const imageLayoutService = new ImageLayoutService();
         this.fileDisplayData = imageLayoutService.buildRows(this.allFiles, {
-            rowWidth: 1000,
+            rowWidth: this.computeDesiredRowWidth(),
             desiredItemHeight: 200,
             itemSpacing: 10,
         });
