@@ -70,7 +70,7 @@ export default class AppComponent extends Vue {
                 element.blur();
                 // Use Web Notifications API
             } catch (e) {
-                console.log(e);
+                // Use Web Notifications API
             }
         }
     }
@@ -85,12 +85,12 @@ export default class AppComponent extends Vue {
     }
 
     /**
-     * Removes all files from the application, deleting them in the database and also on disk. Only works in development.
-     * Once complete, emits a 'wipeComplete' event which other components will listen for.
+     * Removes all files from the application, deleting them in the database and also on disk.
+     * Only works in development. Once complete, emits a 'wipeComplete' event which other components will listen for.
      */
     private wipe(): void {
         if (window.confirm(`Are you sure you want to wipe fs.lukeify.com?`)) {
-            fetch('/api/dev/wipe', { method: 'GET' }).then((res) => {
+            fetch('/api/dev/wipe', { method: 'GET' }).then(() => {
                 EventBus.$emit('wipeComplete');
                 document.title = 'No files | fs.lukeify.com';
             });

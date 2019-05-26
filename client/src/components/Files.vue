@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import {Component, Prop, Vue, Watch} from "vue-property-decorator";
+import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
 import EventBus from '../EventBus';
 
 import FileComponent from '@/components/File.vue';
@@ -34,7 +34,7 @@ import FileDisplayData from '@/interfaces/FileDisplayData';
 export default class FilesComponent extends Vue {
 
     public $refs!: {
-        filesContainerRef: HTMLElement
+        filesContainerRef: HTMLElement,
     };
 
     /**
@@ -55,7 +55,7 @@ export default class FilesComponent extends Vue {
     /**
      * The total storage space used by all files in the application, as a human readable string.
      */
-    public humanReadableStorageSpaceUsed: string = "0B";
+    public humanReadableStorageSpaceUsed: string = '0B';
 
     /**
      * All the files that have been requested by the client.
@@ -105,7 +105,7 @@ export default class FilesComponent extends Vue {
 
         // Create a request to retrieve the metadata for the filesystem.
         fetch('/api/files/meta', { method: 'GET' })
-            .then(res => res.json())
+            .then((res) => res.json())
             .then((data: FilesystemData) => {
                 this.fileCount = data.count;
                 this.storageSpaceUsed = data.bytesUsed;
@@ -114,8 +114,8 @@ export default class FilesComponent extends Vue {
         });
 
         // Create a request to retrieve the first pagination of results.
-        fetch('/api/files?paginate=' + this.paginate, { method: 'GET', })
-            .then(res => res.json())
+        fetch('/api/files?paginate=' + this.paginate, { method: 'GET' })
+            .then((res) => res.json())
             .then((res: File[]) => {
                 this.allFiles = res;
 
@@ -126,8 +126,6 @@ export default class FilesComponent extends Vue {
                     desiredItemHeight: 200,
                     itemSpacing: 10,
                 });
-
-                console.log(this.fileDisplayData, this.computeDesiredRowWidth());
         });
     }
 
@@ -175,8 +173,7 @@ export default class FilesComponent extends Vue {
 
         fetch('/api/files?from=' + currentFilePosition + '&paginate=' + this.paginate)
             .then((res: Response) => res.json())
-            .then(res => {
-            const data: any = res.json();
+            .then((data) => {
             this.hasReachedEnd = data.files.length < this.paginate;
             this.allFiles = this.allFiles.concat(data.files);
 
@@ -196,7 +193,7 @@ export default class FilesComponent extends Vue {
     public onUploadSuccessFn(files: File[]): void {
         this.allFiles.unshift(...files);
         this.fileCount          += files.length;
-        this.storageSpaceUsed   += files.reduce((a,v,i) => a += v.filesize, 0);
+        this.storageSpaceUsed   += files.reduce((a, v, i) => a += v.filesize, 0);
         this.humanReadableStorageSpaceUsed = this.computeStorageSpaceUsed(this.storageSpaceUsed);
         this.setDocumentTitle(this.fileCount, this.humanReadableStorageSpaceUsed);
 

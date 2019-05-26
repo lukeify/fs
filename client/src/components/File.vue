@@ -26,7 +26,7 @@
         @Prop() public file!: FileDisplayData;
 
         public $refs!: {
-            fullyQualifiedUrlElement: HTMLInputElement
+            fullyQualifiedUrlElement: HTMLInputElement,
         };
 
         public env: string = EnvironmentService.getEnv;

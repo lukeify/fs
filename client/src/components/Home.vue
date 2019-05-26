@@ -13,7 +13,7 @@
 import { Component, Vue } from 'vue-property-decorator';
 import FilesComponent from '@/components/Files.vue';
 import {DropzoneOptions} from 'dropzone';
-const vue2Dropzone = require('vue2-dropzone');
+const vue2Dropzone = require('vue2-dropzone'); // tslint:disable-line
 
 @Component({
     components: {
@@ -119,17 +119,19 @@ export default class HomeComponent extends Vue {
         flex-direction:column;
         justify-content:center;
         align-items: center;
-        background: linear-gradient(90deg, $white ($dot-space - $dot-size), transparent 1%) center,
-        linear-gradient($white ($dot-space - $dot-size), transparent 1%) center,
-        darken($white, 20%);
-        background-size: $dot-space $dot-space;
+
+        @media (prefers-color-scheme: light) {
+            background: linear-gradient(90deg, $white ($dot-space - $dot-size), transparent 1%) center,
+            linear-gradient($white ($dot-space - $dot-size), transparent 1%) center,
+            darken($white, 20%);
+            background-size: $dot-space $dot-space;
+        }
 
         @media (prefers-color-scheme: dark) {
             background: linear-gradient(90deg, $midnight ($dot-space - $dot-size), transparent 1%) center,
             linear-gradient($midnight ($dot-space - $dot-size), transparent 1%) center,
             lighten($midnight, 15%);
             background-size: $dot-space $dot-space;
-
         }
 
         .dz-message {
