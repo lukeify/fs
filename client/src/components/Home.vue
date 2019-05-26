@@ -120,6 +120,10 @@ export default class HomeComponent extends Vue {
         justify-content:center;
         align-items: center;
 
+        @media (max-height: #{$vertical-breakpoint}) {
+            min-height:$dz-zone-size * 0.75;
+        }
+
         @media (prefers-color-scheme: light) {
             background: linear-gradient(90deg, $white ($dot-space - $dot-size), transparent 1%) center,
             linear-gradient($white ($dot-space - $dot-size), transparent 1%) center,

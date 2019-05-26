@@ -102,13 +102,10 @@ export default class AppComponent extends Vue {
 <style lang="scss">
     @import "styles/design.scss";
 
-    $breakpoint: 60em;
-
-
     html {
         margin: 0 4em;
 
-        @media (max-width: #{$breakpoint}) {
+        @media (max-width: #{$horizontal-breakpoint}) {
             margin:0 1em;
         }
     }
@@ -138,6 +135,10 @@ export default class AppComponent extends Vue {
         text-align: center;
         margin: 1em 0;
         padding: 0;
+
+        @media (max-height: #{$vertical-breakpoint}) {
+            font-size:1.5em;
+        }
     }
 
     ul {
@@ -181,7 +182,7 @@ export default class AppComponent extends Vue {
         text-align: left;
         font-size: 0.9em;
 
-        @media (max-width: #{$breakpoint}) {
+        @media (max-width: #{$horizontal-breakpoint}) {
             padding: 1.3em 1em 1.5em 1em;
         }
 
