@@ -102,8 +102,15 @@ export default class AppComponent extends Vue {
 <style lang="scss">
     @import "styles/design.scss";
 
+    $breakpoint: 60em;
+
+
     html {
-        margin: 0 100px;
+        margin: 0 4em;
+
+        @media (max-width: #{$breakpoint}) {
+            margin:0 1em;
+        }
     }
 
     html, body {
@@ -118,9 +125,8 @@ export default class AppComponent extends Vue {
 
     body {
         text-align: center;
-        margin: 0;
         padding: 0;
-        margin-bottom: 10em;
+        margin:0 0 10em 0;
     }
 
     h1, h2, h3, h4, h5, h6, p, a, ul, li, span {
@@ -128,9 +134,9 @@ export default class AppComponent extends Vue {
     }
 
     h1 {
-        font-size: 3em;
+        font-size: 2em;
         text-align: center;
-        margin: 1em;
+        margin: 1em 0;
         padding: 0;
     }
 
@@ -166,7 +172,7 @@ export default class AppComponent extends Vue {
 
     .footer {
         position: fixed;
-        padding: 1.3em 100px 1.5em 100px;
+        padding: 1.3em 4em 1.5em 4em;
         bottom: 0;
         left: 0;
         right:0;
@@ -174,6 +180,10 @@ export default class AppComponent extends Vue {
         backdrop-filter: blur(30px) saturate(200%);
         text-align: left;
         font-size: 0.9em;
+
+        @media (max-width: #{$breakpoint}) {
+            padding: 1.3em 1em 1.5em 1em;
+        }
 
         @supports not (backdrop-filter:blur(30px)) {
             background-color:rgba($white, 0.9);

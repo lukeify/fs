@@ -147,7 +147,6 @@
 
     .statement {
         text-align: center;
-
         margin: 1em;
     }
 
@@ -160,7 +159,7 @@
         border: none;
         border-bottom: 3px solid $lightgrey;
         font-size: 1em;
-        margin: 2em;
+        margin: 4em 0;
         padding: 4px 10px;
         font-family: $inconsolata;
         width: 320px;
